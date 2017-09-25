@@ -9,13 +9,16 @@ import com.facebook.react.uimanager.ViewManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import im.status.ethereum.function.Function;
 
 public class WebViewBridgePackage implements ReactPackage {
 
     private boolean debug;
+    Function<String, String> callRPC;
 
-    public WebViewBridgePackage(boolean debug) {
+    public WebViewBridgePackage(boolean debug, Function<String, String> callRPC) {
         this.debug = debug;
+        this.callRPC = callRPC;
     }
 
     @Override
@@ -26,7 +29,7 @@ public class WebViewBridgePackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactApplicationContext) {
         return Arrays.<ViewManager>asList(
-                new WebViewBridgeManager(reactApplicationContext, this.debug)
+                new WebViewBridgeManager(reactApplicationContext, this.debug, this.callRPC)
         );
     }
 

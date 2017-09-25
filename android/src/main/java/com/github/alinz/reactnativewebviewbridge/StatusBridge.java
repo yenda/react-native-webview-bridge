@@ -5,15 +5,18 @@ import android.webkit.WebView;
 import android.app.Activity;
 
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.github.status_im.status_go.cmd.Statusgo;
+
+import im.status.ethereum.function.Function;
 
 class StatusBridge {
     private WebView webView;
     private ThemedReactContext context;
+    private Function<String, String> callRPC;
 
-    public StatusBridge(ThemedReactContext context, WebView webView) {
+    public StatusBridge(ThemedReactContext context, WebView webView, Function<String, String> callRPC) {
         this.context = context;
         this.webView = webView;
+        this.callRPC = callRPC;
     }
 
     @JavascriptInterface
@@ -21,7 +24,7 @@ class StatusBridge {
         Thread thread = new Thread() {
             @Override
             public void run() {
-                String rpcResponse = Statusgo.CallRPC(json).trim();
+                String rpcResponse = callRPC.apply(json).trim();
 
                 final String script = "httpCallback('" + callbackId + "','" + rpcResponse + "');";
                 final Activity activity = context.getCurrentActivity();
@@ -38,7 +41,7 @@ class StatusBridge {
 
     @JavascriptInterface
     public String sendRequestSync(final String host, final String json) {
-        return Statusgo.CallRPC(json);
+        return this.callRPC.apply(json);
     }
 
     static private void evaluateJavascript(WebView root, String javascript) {

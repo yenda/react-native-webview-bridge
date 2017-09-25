@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Map;
+import im.status.ethereum.function.Function;
 
 import static okhttp3.internal.Util.UTF_8;
 
@@ -53,10 +54,12 @@ public class WebViewBridgeManager extends ReactWebViewManager {
     private static ReactApplicationContext reactNativeContext;
     private OkHttpClient client;
     private static boolean debug;
+    Function<String, String> callRPC;
 
-    public WebViewBridgeManager(ReactApplicationContext context, boolean debug) {
+    public WebViewBridgeManager(ReactApplicationContext context, boolean debug, Function<String, String> callRPC) {
         this.reactNativeContext = context;
         this.debug = debug;
+        this.callRPC = callRPC;
         Builder b = new Builder();
         client = b
                 .followRedirects(false)
@@ -140,7 +143,7 @@ public class WebViewBridgeManager extends ReactWebViewManager {
         webView.setWebChromeClient(client);
         webView.setWebViewClient(new ReactWebViewClient());
         webView.addJavascriptInterface(new JavascriptBridge(webView), "WebViewBridge");
-        StatusBridge bridge = new StatusBridge(reactContext, webView);
+        StatusBridge bridge = new StatusBridge(reactContext, webView, this.callRPC);
         webView.addJavascriptInterface(bridge, "StatusBridge");
         webView.setStatusBridge(bridge);
 
