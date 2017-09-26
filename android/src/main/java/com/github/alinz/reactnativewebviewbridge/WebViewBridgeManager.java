@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Map;
-import java.util.function.Function;
+import im.status.ethereum.function.Function;
 
 import static okhttp3.internal.Util.UTF_8;
 

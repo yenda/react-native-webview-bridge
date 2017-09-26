@@ -35,5 +35,6 @@ repositories {
 }
 
 dependencies {
+    compile 'status-im:function:0.0.1'
     compile 'com.facebook.react:react-native:+'
 }

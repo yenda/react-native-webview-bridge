@@ -6,7 +6,7 @@ import android.app.Activity;
 
 import com.facebook.react.uimanager.ThemedReactContext;
 
-import java.util.function.Function;
+import im.status.ethereum.function.Function;
 
 class StatusBridge {
     private WebView webView;
