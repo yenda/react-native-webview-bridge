@@ -16,7 +16,6 @@ var createReactClass = require('create-react-class');
 var PropTypes = require('prop-types');
 
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
-import deprecatedPropType from 'react-native/Libraries/Utilities/deprecatedPropType';
 import invariant from 'fbjs/lib/invariant';
 import keyMirror from 'fbjs/lib/keyMirror';
 var WKWebViewManager = NativeModules.WKWebViewManager;
