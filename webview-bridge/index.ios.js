@@ -9,13 +9,15 @@ import ReactNative, {
     View,
     NativeModules,
     Text,
-    ActivityIndicatorIOS
+    ActivityIndicatorIOS,
+    ViewPropTypes
 } from 'react-native';
 
 var createReactClass = require('create-react-class');
 var PropTypes = require('prop-types');
 
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+import deprecatedPropType from 'react-native/Libraries/Utilities/deprecatedPropType';
 import invariant from 'fbjs/lib/invariant';
 import keyMirror from 'fbjs/lib/keyMirror';
 var WKWebViewManager = NativeModules.WKWebViewManager;
@@ -80,7 +82,7 @@ var WKWebView = createReactClass({
         NavigationType: NavigationType,
     },
     propTypes: {
-        ...View.propTypes,
+        ...ViewPropTypes,
 
         html: deprecatedPropType(
             PropTypes.string,
@@ -177,7 +179,7 @@ var WKWebView = createReactClass({
         onNavigationStateChange: PropTypes.func,
         scalesPageToFit: PropTypes.bool,
         startInLoadingState: PropTypes.bool,
-        style: View.propTypes.style,
+        style: ViewPropTypes.style,
         /**
          * Sets the JS to be injected when the webpage loads.
          */
